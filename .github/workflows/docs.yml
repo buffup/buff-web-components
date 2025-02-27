@@ -20,11 +20,22 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build Docs
+        run: npm run docs
+
       - name: Build Storybook
         run: npm run build-storybook
+
+      - name: Deploy Docs to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          destination_dir: ./docs
 
       - name: Deploy Storybook to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./storybook-static
+          destination_dir: ./storybook
